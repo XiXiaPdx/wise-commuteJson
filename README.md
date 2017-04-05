@@ -1,18 +1,21 @@
-# _wise-commute_
+# _Wise Commute_
 
-#### _wise-commute, 04-05-2017_
+#### _Wise Commute, 04-05-2017_
 
-#### By _**R and **_
+#### By _**Ryan Jones, Xi Xia, Chris Carr, and Evan Bishop**_
 
 ## Description
-_Example text for the description of the project_
+_Wise Commute allows Trimet commuters a platform to make better commuting decisions based off train statistics. As a user you can find out in real time what the train capacity, train car length, and train arrival times are for your desired train. Leveraging AWS cloud storage, Trimet API, Facebook API and Facebook Authentication, we are able to separate ourselves from other commuter apps._
 
 
 ## Specifications
 
 | Behavior                   | Input Example     | Output Example    |
 | -------------------------- | -----------------:| -----------------:|
-
+| Sample behavior | Input text | Output text |
+| Sample behavior | Input text | Output text |
+| Sample behavior | Input text | Output text |
+| Sample behavior | Input text | Output text |
 
 
 ## Setup/Installation Requirements
@@ -24,6 +27,24 @@ _Example text for the description of the project_
 
 ### License
 
-Copyright (c) 2017 **_R and _**
+Copyright (©) 2017 Wise Commute http://wisecommute.com
 
-This software is licensed under the MIT license.
+Authors: **_Ryan Jones, Xi Xia, Chris Carr, and Evan Bishop_**
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
