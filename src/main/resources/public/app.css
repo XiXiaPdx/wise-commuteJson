@@ -1,0 +1,49 @@
+.submitReport{
+  background-color: none;
+  width:100%;
+  margin-top: 50px;
+  position:fixed;
+  z-index:10;
+  text-align: center;
+  padding-right: 30px;
+}
+
+#submitReportButton{
+  border: 1px solid black;
+}
+
+.templateHolder{
+  margin-top:100px;
+}
+.navbar{
+  border-radius: 0px;
+  transition: transform .2s ease-in-out;
+  z-index:9999;
+}
+
+body {
+  height: 2000px;
+  background-color: #cd4f39;
+}
+
+#login-dp{
+  background-color: green;
+  min-width: 150px;
+  padding-bottom: 0px;
+
+}
+
+.bottom {
+  background-color: yellow;
+
+}
+
+#login-form{
+  padding: 10px;
+}
+
+
+@media(max-width:768px){
+    #login-dp{
+        background-color: inherit;
+    }
