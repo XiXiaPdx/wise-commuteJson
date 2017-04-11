@@ -32,4 +32,15 @@ public class UserTest {
     assertEquals(secondUser.getId(), User.find(secondUser.getId()).getId());
   }
 
+  @Test
+  public void getReportCount_returnsReportCountForUser_true() {
+    User firstUser = new User("xyz@gmail.com", "xyz", "1234password", "www.imgur.com/harambe.jpg");
+    firstUser.save();
+    Report firstReport = new Report(firstUser.getId(), 1, "full", "train is packed, RIP!");
+    firstReport.save();
+    Report secondReport = new Report(firstUser.getId(), 1, "full", "train is packed, RIP!");
+    secondReport.save();
+    assertEquals(2, firstUser.getReportCount());
+  }
+
 }
