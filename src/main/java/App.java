@@ -10,15 +10,24 @@ public class App {
     externalStaticFileLocation(String.format("%s/src/main/resources/public", System.getProperty("user.dir")));
     String layout = "templates/layout.vtl";
 
+    before("/", (request, response) -> {
+      if (request.session().attribute("user") == null) {
+        response.redirect("/login");
+        }
+    });
+    before("/reports", (request, response) -> {
+      if (request.session().attribute("user") == null) {
+        response.redirect("/login");
+        }
+    });
+
     get("/", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
-      if ((request.session().attribute("user")) == null){
-       response.redirect("/login");
-       } else {
+  
          User newUser = (request.session().attribute("user"));
          model.put("newUser", newUser);
          model.put("template", "templates/index.vtl");
-       }
+
        return new ModelAndView(model, layout);
      } , new VelocityTemplateEngine());
 
@@ -58,6 +67,8 @@ public class App {
 
     get("/reports", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
+      User newUser = (request.session().attribute("user"));
+      model.put("newUser", newUser);
       model.put("template", "templates/index.vtl");
       model.put("report", "templates/reports.vtl");
       return new ModelAndView(model, layout);
