@@ -42,7 +42,8 @@ CREATE TABLE reports (
     id_user integer,
     id_train integer,
     train_capacity character varying,
-    comment character varying(100)
+    comment character varying(100),
+    "timestamp" timestamp without time zone
 );
 
 
@@ -123,7 +124,7 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 -- Data for Name: reports; Type: TABLE DATA; Schema: public; Owner: Guest
 --
 
-COPY reports (id, id_user, id_train, train_capacity, comment) FROM stdin;
+COPY reports (id, id_user, id_train, train_capacity, comment, "timestamp") FROM stdin;
 \.
 
 
