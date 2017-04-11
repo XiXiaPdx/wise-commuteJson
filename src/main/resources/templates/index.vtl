@@ -1,8 +1,8 @@
 <!--index.vtl-->
-<h3> Pick a train and stop. You'll see other people's wisdom on how crowded it might be when it arrives.</h3>
+<h3 id="frontPageInstructions"> Pick a train and stop. You'll see other people's wisdom on how crowded it might be when it arrives.</h3>
 
-<div class="form-group">
-  <select class=" form-control" name="trainSelected">
+<div class="form-group" id="selectTrainAndStop">
+  <select class=" form-control" id="trainSelected">
   <option disabled="" selected="">Choose A Train</option>
     <option value="$Train.getTriMetId()">$Train.getName()</option>
    </select>
@@ -10,8 +10,6 @@
 <select class=" form-control" id="trainStopSelected">
 <option disabled="" selected="">Choose A Stop</option>
   <option value="$Train.getTrainStopId()">$TrainStop.getName()</option>
-  <!-- <input id="submit" type="submit" name="submit" value=""> -->
-
  </select>
  </form>
 

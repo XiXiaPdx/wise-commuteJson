@@ -8,14 +8,60 @@
   padding-right: 30px;
 }
 
+#navBarHeaderText{
+  color:white;
+  margin-left: 20px;
+}
+
 #submitReportButton{
   margin-top: 10px;
-  /*border: 1px solid black;*/
   border-radius: 30px;
   background-color: #ff5a36;
   color: white;
 
 }
+
+#frontPageInstructions{
+  color: white;
+}
+
+#selectTrainAndStop{
+ width: 75%;
+ margin-left: auto;
+ margin-right: auto;
+}
+
+#trainSelected{
+  margin-top: 15px;
+}
+
+#trainStopSelected{
+  margin-top: 15px;
+}
+
+.userReports{
+  display:none;
+  word-wrap: break-word;
+}
+
+.userReports button{
+  text-align: center;
+}
+
+.userThumbNail{
+  position: fixed;
+  top: 0px;
+  left:0px;
+}
+
+.starButton{
+  background-color: transparent;
+  border: none;
+  color: #ff5a36;
+  font-size: 25px;
+}
+
+
 
 .templateHolder{
   margin-top:100px;
@@ -27,7 +73,7 @@
 }
 
 body {
-  height: 2000px;
+  height: 100%;
   background-color: #084c8d;
 }
 
