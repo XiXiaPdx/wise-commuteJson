@@ -1,6 +1,7 @@
 
   $(function(){
    $("#trainStopSelected").change(function(){
-     $('#submit').click();
+     $(this).parent('form').submit();
+    //  $('#submit').click();
     });
 });
