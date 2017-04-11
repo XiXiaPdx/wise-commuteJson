@@ -1,6 +1,7 @@
 import org.sql2o.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.Timestamp;
 
 public class Report {
 
@@ -9,6 +10,7 @@ public class Report {
   private int id_train;
   private String train_capacity;
   private String comment;
+  private Timestamp timestamp;
 
   public static final String CAPACITY_EMPTY = "Empty";
   public static final String CAPACITY_HALF = "Half";
@@ -41,9 +43,13 @@ public class Report {
     return this.comment;
   }
 
+  public Timestamp getTimestamp() {
+    return this.timestamp;
+  }
+
   public void save() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO reports (id_user, id_train, train_capacity, comment) VALUES (:id_user, :id_train, :train_capacity, :comment);";
+      String sql = "INSERT INTO reports (id_user, id_train, train_capacity, comment, timestamp) VALUES (:id_user, :id_train, :train_capacity, :comment, now());";
       this.id = (int) con.createQuery(sql, true)
         .addParameter("id_user", this.id_user)
         .addParameter("id_train", this.id_train)
@@ -51,6 +57,13 @@ public class Report {
         .addParameter("comment", this.comment)
         .executeUpdate()
         .getKey();
+    }
+
+    try(Connection con = DB.sql2o.open()) {
+      String timestampQuery = "SELECT timestamp FROM reports WHERE id = :id;";
+      this.timestamp = con.createQuery(timestampQuery)
+        .addParameter("id", this.id)
+        .executeAndFetchFirst(Timestamp.class);
     }
   }
 
@@ -69,6 +82,15 @@ public class Report {
         .addParameter("id", id)
         .executeAndFetchFirst(Report.class);
       return report;
+    }
+  }
+
+  public static List<Report> getReportsByTrainId(int id_train) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT * FROM reports WHERE id_train = :id;";
+      return con.createQuery(sql)
+        .addParameter("id", id_train)
+        .executeAndFetch(Report.class);
     }
   }
 }
