@@ -23,6 +23,13 @@ public class ReportTest {
   }
 
   @Test
+  public void save_assignsTimestampToObjectAndSavesObjectToDatabase() {
+    Report testReport = new Report(1, 1, "full", "train is packed, RIP!");
+    testReport.save();
+    assertTrue(testReport.getTimestamp() != null);
+  }
+
+  @Test
   public void all_returnsAllInstancesOfReport_false() {
     Report firstReport = new Report(1, 1, "full", "train is packed, RIP!");
     firstReport.save();
@@ -30,6 +37,17 @@ public class ReportTest {
     secondReport.save();
     assertEquals(firstReport.getId(), Report.find(firstReport.getId()).getId());
     assertEquals(secondReport.getId(), Report.find(secondReport.getId()).getId());
+  }
+
+  @Test
+  public void getReportsByTrainId_getsReportsForATrainId_true() {
+    Report firstReport = new Report(1, 1, "full", "train is full?");
+    firstReport.save();
+    Report secondReport = new Report(1, 1, "full", "train is packed, RIP!");
+    secondReport.save();
+
+    assertTrue(Report.getReportsByTrainId(1).size() == 2);
+    assertEquals(Report.getReportsByTrainId(1).get(0).getComment(), firstReport.getComment());
   }
 
 }
