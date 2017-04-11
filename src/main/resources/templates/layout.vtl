@@ -49,12 +49,35 @@
       </div>
       <form action="/submit" method="post">
         <div class="modal-body">
-        <h1> slider scale for how packed is the train</h1>
-        <input type="range" id="myRange" value="100">
-
+          <div class="row">
+            <h3 id="capacityRangeTitle"> Current Capacity</h3>
+            <div class="col-xs-3">
+              <h5 id="sliderLeft">Ghost Train</h5>
+            </div>
+            <div class="col-xs-6" id="sliderMiddle">
+              <h5 >Half Full</h5>
+            </div>
+            <div class="col-xs-3">
+              <h5 id="sliderRight">Sweaty Pits In Your Face</h5>
+            </div>
+          </div>
+          <input type="range" name="capacityRange" id="capacityRange" min="1" max="99">
+          <div class="form-group" id="reportTrainAndStop">
+            <select class=" form-control"  id="reportTrainSelected" required>
+            <option value="">Choose A Train</option>
+              <option value="$Train.getTriMetId()">$Train.getName()</option>
+             </select>
+          <select class=" form-control"  id="reportTrainStopSelected" required>
+          <option value="">Choose A Stop</option>
+            <option value="$Train.getTrainStopId()">$TrainStop.getName()</option>
+           </select>
+           </div>
+          <div class="form-group" >
+            <textarea type="text" class="form-control" id="reportComment" name="reportComment" maxlength="140"></textarea>
+          </div>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-default">Submit</button>
+          <button type="submit" class="btn btn-default" id="reportSubmitButton">Submit</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       </form>

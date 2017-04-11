@@ -7,6 +7,22 @@
   text-align: center;
   padding-right: 15px;
 }
+/*#capacityRange{
+  margin-left: 30px;
+  margin-right: 30px;
+}*/
+
+#sliderLeft{
+  text-align: left;
+}
+
+#sliderRight{
+  text-align: right;
+}
+
+#sliderMiddle{
+  text-align: center;
+}
 
 #navBarHeaderText{
   color:white;
@@ -14,11 +30,10 @@
 }
 
 #submitReportButton{
-  margin-top: 10px;
+  margin-top: 20px;
   border-radius: 30px;
   background-color: #ff5a36;
   color: white;
-
 }
 
 #frontPageInstructions{
@@ -31,7 +46,7 @@
 }
 
 #selectTrainAndStop{
- width: 80%;
+ width: 85%;
  margin-left: auto;
  margin-right: auto;
 }
@@ -43,6 +58,45 @@
 #trainStopSelected{
   margin-top: 15px;
 }
+
+#reportTrainAndStop{
+  margin-top: 20px;
+  width: 85%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#capacityRangeTitle{
+  text-align:center;
+}
+#capacityRange{
+  width:85%;
+  margin-left: auto;
+  margin-right: auto;
+}
+#reportComment{
+  width:85%;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.modal-content{
+  background-image: linear-gradient(to top, #2C2C2D 0%, #000000 100%);
+  /*background-color: ;*/
+  color:white;
+  box-shadow: 0px 5px 15px;
+}
+
+#reportTrainStopSelected{
+  margin-top:20px;
+}
+
+#reportSubmitButton{
+  background-color: #ff5a36;
+  color: white;
+  border: none;
+}
+
 
 .userReports{
   display:none;
