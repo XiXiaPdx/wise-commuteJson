@@ -72,6 +72,17 @@ public class User {
     }
   }
 
+  public User authenticate(){
+    try(Connection con = DB.sql2o.open()) {
+      String searchForUser= "SELECT * FROM users WHERE username=:username AND password=:password";
+      User foundUserName = con.createQuery(searchForUser)
+        .addParameter("username", this.username)
+        .addParameter("password", this.password)
+        .executeAndFetchFirst(User.class);
+      return foundUserName;
+    }
+  }
+
   public int getReportCount() {
     try(Connection con = DB.sql2o.open()) {
       String sql = "SELECT COUNT(*) FROM reports WHERE id_user = :id;";
@@ -82,5 +93,4 @@ public class User {
       return reportCount;
     }
   }
-
 }
