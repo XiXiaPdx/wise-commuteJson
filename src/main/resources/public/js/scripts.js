@@ -3,7 +3,7 @@ $(function(){
   $("#trainSelected").change(function() {
     // if the option is green then add green line stops..
     var trainRoute = $("#trainSelected").val();
-    if(trainRoute === "Green Line to City Center/PSU") {
+    if(trainRoute === "Green Line to City Ctr") {
       $("#trainStopSelected").empty().append(
         '<option>Choose A Stop</option>' +
         '<option value="13132">Clackamas Town Center</option>' +
@@ -34,7 +34,7 @@ $(function(){
     $(this).parent('form').submit();
     var trainStop = $('#trainStopSelected').find(":selected").val();
     // var trainStop = "13132";
-    console.log(trainStop);
+    alert(trainStop);
     $.ajax({
       type: "GET",
       url: "https://developer.trimet.org/ws/v2/arrivals?locIDs=" + trainStop + "&xml=true&appID=3B5160342487A47D436E90CD9",
@@ -43,51 +43,73 @@ $(function(){
     });
 
     function processXML(xml) {
-      console.log("xml being processed");
-      var trainName = $(xml).find("arrival").attr('fullSign');
-      localStorage.clear();
-      localStorage.setItem("trainName", trainName);
-      // var scheduledTime = parseInt($(xml).find("arrival").attr('scheduled'));
-      // var estimatedTime = parseInt($(xml).find("arrival").attr('estimated'));
-      // var delay;
-      // if(scheduledTime > estimatedTime) {
-      //   delay = ((scheduledTime - estimatedTime) / 1000 / 60);
-      // } else {
-      //   delay = ((estimatedTime - scheduledTime) / 1000 / 60);
-      // }
-      //
-      // var scheduledDate = new Date(0);
-      // scheduledDate.setUTCMilliseconds(scheduledTime);
-      // $("#scheduled-time").text(scheduledDate.toLocaleTimeString());
-      // $("#trainName").text(trainName);
-      // $("#delay").text(delay);
-      //
-      // $("#train1").append(trainName);
+      var trainRoute = $('#trainSelected').find(":selected").val();
+      var trainArray = new Array();
+      $(xml).find("arrival").each(function() {
+        var shortSign = $(this).attr('shortSign');
+        if(shortSign.includes(trainRoute)) {
+          // Train name (fullSign)
+          var fullSign = $(this).attr('fullSign');
+          alert("Fullsign: " + fullSign);
+          // Delay
+          var scheduledTime = parseInt($(this).attr('scheduled'));
+          var estimatedTime = parseInt($(this).attr('estimated'));
+          var delay;
+          if(scheduledTime > estimatedTime) {
+            delay = ((scheduledTime - estimatedTime) / 1000 / 60);
+          } else {
+            delay = ((estimatedTime - scheduledTime) / 1000 / 60);
+          }
+          alert("Delay: " + delay);
+          // Arrival Time
+          var scheduledDate = new Date(0);
+          scheduledDate.setUTCMilliseconds(scheduledTime);
+          var arrivalTime = scheduledDate.toLocaleTimeString();
+          alert("arrival time: " + arrivalTime);
 
+          var trainInformation = { fullSign: fullSign, delay: delay, arrival: arrivalTime };
+
+          trainArray.push(trainInformation);
+        }
+      });
+      localStorage.clear();
+      localStorage.setItem("trainArray", JSON.stringify(trainArray));
     }
   });
-  $("#trainName").text(localStorage.getItem("trainName"));
-  console.log(localStorage.getItem("trainName"));
-  $(".userReports").slideDown();
-
-  // google maps
-  var myCenter = new google.maps.LatLng(45.5423508,-122.7945062);
-
-  function initialize() {
-    var mapProp = {
-    center:myCenter,
-    zoom:12,
-    scrollwheel:true,
-    draggable:true,
-    mapTypeId:google.maps.MapTypeId.ROADMAP
-  };
-
-  var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
-
-  var marker = new google.maps.Marker({
-  position:myCenter,
-  })
-  marker.setMap(map);
+  var url = location.href;
+  if(url.includes("reports")) {
+    var trainArray = JSON.parse(localStorage.getItem("trainArray"));
+    trainArray.forEach(function(train) {
+      var count = 1;
+      if(count <= 3) {
+        $("#trainName").text(train["fullSign"]);
+        // console.log(train["fullSign"]);
+        // console.log(train["delay"]);
+        $("#trainDelay").text(train["delay"]);
+        $("#trainArrival").text(train["arrival"]);
+      }
+      count++;
+    });
+    $(".userReports").slideDown();
   }
-  google.maps.event.addDomListener(window, 'load', initialize);
+  // google maps
+  // var myCenter = new google.maps.LatLng(45.5423508,-122.7945062);
+  //
+  // function initialize() {
+  //   var mapProp = {
+  //   center:myCenter,
+  //   zoom:12,
+  //   scrollwheel:true,
+  //   draggable:true,
+  //   mapTypeId:google.maps.MapTypeId.ROADMAP
+  // };
+  //
+  // var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+  //
+  // var marker = new google.maps.Marker({
+  // position:myCenter,
+  // })
+  // marker.setMap(map);
+  // }
+  // google.maps.event.addDomListener(window, 'load', initialize);
 });

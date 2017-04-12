@@ -7,7 +7,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="/js/scripts.js"></script>
-    <script src="http://maps.googleapis.com/maps/api/js"></script>
+    <!-- <script src="http://maps.googleapis.com/maps/api/js"></script> -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
   </head>
@@ -48,7 +48,7 @@
 
         <h4 class="modal-title" id="myModalLabel"></h4>
       </div>
-      <form action="/submit" method="post">
+      <form action="/addReport" method="post">
         <div class="modal-body">
           <div class="row">
             <h3 id="capacityRangeTitle"> Current Capacity</h3>
@@ -62,15 +62,17 @@
               <h5 id="sliderRight">Sweaty Pits In Your Face</h5>
             </div>
           </div>
-          <input type="range" name="capacityRange" id="capacityRange" min="1" max="99">
+          <input type="range" name="trainCapacity" id="capacityRange" min="1" max="99">
           <div class="form-group" id="reportTrainAndStop">
-            <select class=" form-control"  id="reportTrainSelected" required>
+            <select class=" form-control" name="id_train" id="reportTrainSelected" required>
             <option value="">Choose A Train</option>
-              <option value="$Train.getTriMetId()">$Train.getName()</option>
+              <option value="100">Green Line</option>
+              <option value="200">Red Line</option>
              </select>
-          <select class=" form-control"  id="reportTrainStopSelected" required>
+          <select class=" form-control" name="id_stop" id="reportTrainStopSelected" required>
           <option value="">Choose A Stop</option>
-            <option value="$Train.getTrainStopId()">$TrainStop.getName()</option>
+          <option value="8307">Rose Quarter</option>
+          <option value="8308">Gateway Transit Center</option>
            </select>
            </div>
           <div class="form-group" >

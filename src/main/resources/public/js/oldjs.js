@@ -47,3 +47,21 @@
 //     $("#delay").text(delay);
 //   }
 // });
+
+
+// var scheduledTime = parseInt($(xml).find("arrival").attr('scheduled'));
+// var estimatedTime = parseInt($(xml).find("arrival").attr('estimated'));
+// var delay;
+// if(scheduledTime > estimatedTime) {
+//   delay = ((scheduledTime - estimatedTime) / 1000 / 60);
+// } else {
+//   delay = ((estimatedTime - scheduledTime) / 1000 / 60);
+// }
+//
+// var scheduledDate = new Date(0);
+// scheduledDate.setUTCMilliseconds(scheduledTime);
+// $("#scheduled-time").text(scheduledDate.toLocaleTimeString());
+// $("#trainName").text(trainName);
+// $("#delay").text(delay);
+//
+// $("#train1").append(trainName);

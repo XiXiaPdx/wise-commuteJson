@@ -1,25 +1,22 @@
 <div class="well userReports" >
   <h4 id="trainName"></h4>
-  <h4 id="trainArrivalTime">Estimate Time of Arrival Here</h4>
+  <h4 id="trainArrival"></h4>
+  <h4 id="trainDelay"></h4>
   <div id="googleMap"></div>
 
 </div>
 
+#foreach ($report in $reports)
 <div class="well userReports" >
 <img src="" class="userThumbNail">Tiny Image here</img>
-<h4> $report.UserName - Wisdom Added - $report.UserName().numberOfReportsSubmitted()  </h4>
-<p> "Wisdom added $report.EstimatedTimeToArriveAtStop() MINUTES to  $selectedStop.getName() "</p>
-<p> "$report.trainCapacity()" </p>
-<button type="button" class="btn btn-default btn-md starButton">
+<h4> User ID $report.getUserId()- Wisdom Added - $report.UserName().numberOfReportsSubmitted()  </h4>
+<p> Next Stop: $report.getNextStopId()</p>
+<p> Train Capacity - $report.getTrainCapacity() </p>
+<p> User Comment: $report.getComment()</p>
+<p> Report Time: $report.getTimestamp()</p>
+<p> Train ID: $report.getTrainId()</p>
+<!-- <button type="button" class="btn btn-default btn-md starButton">
   <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
-</button>
+</button> -->
 </div>
-<div class="well userReports" >
-<img src="" class="userThumbNail">Tiny Image here</img>
-<h4> $report.UserName - Wisdom Added - $report.UserName().numberOfReportsSubmitted()  </h4>
-<p> "Wisdom added $report.EstimatedTimeToArriveAtStop() MINUTES to  $selectedStop.getName() "</p>
-<p> "$report.trainCapacity()" </p>
-<button type="button" class="btn btn-default btn-md starButton">
-  <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
-</button>
-</div>
+#end

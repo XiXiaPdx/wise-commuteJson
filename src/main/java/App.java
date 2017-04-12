@@ -56,6 +56,7 @@ public class App {
        String userNameTakenCheck = request.session().attribute("userNameTaken");
        model.put("userNameTaken", userNameTakenCheck);
        model.put("warning", checkUser);
+       request.session().removeAttribute("warning");
        return new ModelAndView(model, "templates/login.vtl");
      }, new VelocityTemplateEngine());
 
@@ -64,10 +65,12 @@ public class App {
       String userName = request.queryParams("userName");
       String userPassWord = request.queryParams("userPassword");
       User newUser = new User("", userName, userPassWord, "");
+      User checkThisUser = newUser.authenticate();
+      System.out.println("This is the user ID at Login--" + checkThisUser.getId());
 
-      if (newUser.authenticate() != null) {
+      if (checkThisUser != null) {
         request.session().attribute("warning", null);
-        request.session().attribute("user", newUser);
+        request.session().attribute("user", checkThisUser);
         response.redirect("/");
       } else {
       request.session().attribute("warning", newUser);
@@ -89,21 +92,27 @@ public class App {
     get("/reports", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       User newUser = (request.session().attribute("user"));
+      System.out.println("This is the user ID at gettingReport--" + newUser.getId());
+
       model.put("newUser", newUser);
       model.put("template", "templates/index.vtl");
+      model.put("reports", Report.all());
       model.put("report", "templates/reports.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
-    post("/reports", (request, response) -> {
+    post("/addReport", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
-      int id_user = Integer.parseInt(request.queryParams("id_user"));
+      User newUser = request.session().attribute("user");
+      System.out.println("This is the user ID on the Modal REport submit--" + newUser.getId());
+
+      int id_user = newUser.getId();
       int id_train = Integer.parseInt(request.queryParams("id_train"));
-      String comment = request.queryParams("comment");
+      String comment = request.queryParams("reportComment");
       int trainCapacity = Integer.parseInt(request.queryParams("trainCapacity"));
+      int nextStopID = Integer.parseInt(request.queryParams("id_stop"));
 
       String trainCapacityString = "";
-
       if(trainCapacity <= 33) {
         trainCapacityString = Report.CAPACITY_EMPTY; //CAPACITY_EMPTY = "empty"
       } else if (trainCapacity > 33 && trainCapacity <= 66) {
@@ -112,11 +121,15 @@ public class App {
         trainCapacityString = Report.CAPACITY_FULL; //CAPACITY_FULL = "full"
       }
 
-      Report report = new Report(id_user, id_train, trainCapacityString, comment);
+      Report report = new Report(id_user, id_train, trainCapacityString, comment, nextStopID);
       report.save();
+      // this is testing timestamps are returned from most recent to later.
+      for ( Report list: Report.all()){
+        System.out.println(list.getTimestamp());
+      }
+      //end of test
 
-      String url = String.format("/reports");
-      response.redirect(url);
+      response.redirect("/");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
