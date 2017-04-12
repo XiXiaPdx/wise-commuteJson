@@ -16,7 +16,7 @@ public class ReportTest {
 
   @Test
   public void save_assignsIdToObjectAndSavesObjectToDatabase() {
-    Report testReport = new Report(1, 1, "full", "train is packed, RIP!");
+    Report testReport = new Report(1, 1, "full", "train is packed, RIP!", 8306);
     testReport.save();
     Report savedReport = Report.find(testReport.getId());
     assertEquals(testReport.getId(), savedReport.getId());
@@ -24,16 +24,16 @@ public class ReportTest {
 
   @Test
   public void save_assignsTimestampToObjectAndSavesObjectToDatabase() {
-    Report testReport = new Report(1, 1, "full", "train is packed, RIP!");
+    Report testReport = new Report(1, 1, "full", "train is packed, RIP!", 8306);
     testReport.save();
     assertTrue(testReport.getTimestamp() != null);
   }
 
   @Test
   public void all_returnsAllInstancesOfReport_false() {
-    Report firstReport = new Report(1, 1, "full", "train is packed, RIP!");
+    Report firstReport = new Report(1, 1, "full", "train is packed, RIP!", 8306);
     firstReport.save();
-    Report secondReport = new Report(1, 1, "full", "train is packed, RIP!");
+    Report secondReport = new Report(1, 1, "full", "train is packed, RIP!", 8306);
     secondReport.save();
     assertEquals(firstReport.getId(), Report.find(firstReport.getId()).getId());
     assertEquals(secondReport.getId(), Report.find(secondReport.getId()).getId());
@@ -41,9 +41,9 @@ public class ReportTest {
 
   @Test
   public void getReportsByTrainId_getsReportsForATrainId_true() {
-    Report firstReport = new Report(1, 1, "full", "train is full?");
+    Report firstReport = new Report(1, 1, "full", "train is full?", 8306);
     firstReport.save();
-    Report secondReport = new Report(1, 1, "full", "train is packed, RIP!");
+    Report secondReport = new Report(1, 1, "full", "train is packed, RIP!", 8306);
     secondReport.save();
 
     assertTrue(Report.getReportsByTrainId(1).size() == 2);

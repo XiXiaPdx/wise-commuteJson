@@ -36,9 +36,9 @@ public class UserTest {
   public void getReportCount_returnsReportCountForUser_true() {
     User firstUser = new User("xyz@gmail.com", "xyz", "1234password", "www.imgur.com/harambe.jpg");
     firstUser.save();
-    Report firstReport = new Report(firstUser.getId(), 1, "full", "train is packed, RIP!");
+    Report firstReport = new Report(firstUser.getId(), 1, "full", "train is packed, RIP!", 8306);
     firstReport.save();
-    Report secondReport = new Report(firstUser.getId(), 1, "full", "train is packed, RIP!");
+    Report secondReport = new Report(firstUser.getId(), 1, "full", "train is packed, RIP!", 8306);
     secondReport.save();
     assertEquals(2, firstUser.getReportCount());
   }

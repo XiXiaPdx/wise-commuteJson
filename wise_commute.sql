@@ -42,7 +42,9 @@ CREATE TABLE reports (
     id_user integer,
     id_train integer,
     train_capacity character varying,
-    comment character varying(100)
+    comment character varying(100),
+    "timestamp" timestamp without time zone,
+    id_nextstop integer
 );
 
 
@@ -123,7 +125,11 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 -- Data for Name: reports; Type: TABLE DATA; Schema: public; Owner: Guest
 --
 
-COPY reports (id, id_user, id_train, train_capacity, comment) FROM stdin;
+COPY reports (id, id_user, id_train, train_capacity, comment, "timestamp", id_nextstop) FROM stdin;
+6	1	100	Empty	test 1	2017-04-12 14:32:25.75668	8307
+7	1	100	Full	2nd test	2017-04-12 14:32:36.325643	8307
+8	1	100	Empty	3rd test	2017-04-12 14:32:48.450977	8307
+9	1	200	Half	4th test	2017-04-12 14:33:24.424655	8307
 \.
 
 
@@ -131,7 +137,7 @@ COPY reports (id, id_user, id_train, train_capacity, comment) FROM stdin;
 -- Name: reports_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
-SELECT pg_catalog.setval('reports_id_seq', 1, false);
+SELECT pg_catalog.setval('reports_id_seq', 9, true);
 
 
 --
