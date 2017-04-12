@@ -30,6 +30,7 @@ $(function(){
       );
     }
   });
+
   $("#trainStopSelected").change(function() {
     $(this).parent('form').submit();
     var trainStop = $('#trainStopSelected').find(":selected").val();
@@ -48,6 +49,8 @@ $(function(){
       $(xml).find("arrival").each(function() {
         var shortSign = $(this).attr('shortSign');
         if(shortSign.includes(trainRoute)) {
+          // Vehicle ID
+          
           // Train name (fullSign)
           var fullSign = $(this).attr('fullSign');
           alert("Fullsign: " + fullSign);
@@ -75,7 +78,49 @@ $(function(){
       localStorage.clear();
       localStorage.setItem("trainArray", JSON.stringify(trainArray));
     }
+
+    // $.ajax({
+    //   type: "GET",
+    //   url: "https://developer.trimet.org/ws/v2/vehicles?locIDs=" + trainStop + "&xml=true&appID=3B5160342487A47D436E90CD9",
+    //   dataType: "xml",
+    //   success: processVehicleXML
+    // });
+    //
+    // function processVehicleXML(xml) {
+    //   var trainRoute = $('#trainSelected').find(":selected").val();
+    //   var trainArray = new Array();
+    //   $(xml).find("arrival").each(function() {
+    //     var shortSign = $(this).attr('shortSign');
+    //     if(shortSign.includes(trainRoute)) {
+    //       // Train name (fullSign)
+    //       var fullSign = $(this).attr('fullSign');
+    //       alert("Fullsign: " + fullSign);
+    //       // Delay
+    //       var scheduledTime = parseInt($(this).attr('scheduled'));
+    //       var estimatedTime = parseInt($(this).attr('estimated'));
+    //       var delay;
+    //       if(scheduledTime > estimatedTime) {
+    //         delay = ((scheduledTime - estimatedTime) / 1000 / 60);
+    //       } else {
+    //         delay = ((estimatedTime - scheduledTime) / 1000 / 60);
+    //       }
+    //       alert("Delay: " + delay);
+    //       // Arrival Time
+    //       var scheduledDate = new Date(0);
+    //       scheduledDate.setUTCMilliseconds(scheduledTime);
+    //       var arrivalTime = scheduledDate.toLocaleTimeString();
+    //       alert("arrival time: " + arrivalTime);
+    //
+    //       var trainInformation = { fullSign: fullSign, delay: delay, arrival: arrivalTime };
+    //
+    //       trainArray.push(trainInformation);
+    //     }
+    //   });
+    //   localStorage.clear();
+    //   localStorage.setItem("trainArray", JSON.stringify(trainArray));
+    // }
   });
+
   var url = location.href;
   if(url.includes("reports")) {
     var trainArray = JSON.parse(localStorage.getItem("trainArray"));
@@ -93,23 +138,23 @@ $(function(){
     $(".userReports").slideDown();
   }
   // google maps
-  // var myCenter = new google.maps.LatLng(45.5423508,-122.7945062);
-  //
-  // function initialize() {
-  //   var mapProp = {
-  //   center:myCenter,
-  //   zoom:12,
-  //   scrollwheel:true,
-  //   draggable:true,
-  //   mapTypeId:google.maps.MapTypeId.ROADMAP
-  // };
-  //
-  // var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
-  //
-  // var marker = new google.maps.Marker({
-  // position:myCenter,
-  // })
-  // marker.setMap(map);
-  // }
-  // google.maps.event.addDomListener(window, 'load', initialize);
+  var myCenter = new google.maps.LatLng(45.5423508,-122.7945062);
+
+  function initialize() {
+    var mapProp = {
+    center:myCenter,
+    zoom:12,
+    scrollwheel:true,
+    draggable:true,
+    mapTypeId:google.maps.MapTypeId.ROADMAP
+  };
+
+  var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+
+  var marker = new google.maps.Marker({
+  position:myCenter,
+  })
+  marker.setMap(map);
+  }
+  google.maps.event.addDomListener(window, 'load', initialize);
 });
