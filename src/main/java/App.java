@@ -23,7 +23,7 @@ public class App {
 
     get("/", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
-  
+
          User newUser = (request.session().attribute("user"));
          model.put("newUser", newUser);
          model.put("template", "templates/index.vtl");
@@ -74,15 +74,18 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
-    post("/reports", (request, response) -> {
+    post("/addReport", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
-      int id_user = Integer.parseInt(request.queryParams("id_user"));
+      User newUser = request.session().attribute("user");
+
+
+      int id_user = newUser.getId();
       int id_train = Integer.parseInt(request.queryParams("id_train"));
-      String comment = request.queryParams("comment");
+      String comment = request.queryParams("reportComment");
       int trainCapacity = Integer.parseInt(request.queryParams("trainCapacity"));
+      int nextStopID = Integer.parseInt(request.queryParams("id_stop"));
 
       String trainCapacityString = "";
-
       if(trainCapacity <= 33) {
         trainCapacityString = Report.CAPACITY_EMPTY; //CAPACITY_EMPTY = "empty"
       } else if (trainCapacity > 33 && trainCapacity <= 66) {
@@ -91,13 +94,30 @@ public class App {
         trainCapacityString = Report.CAPACITY_FULL; //CAPACITY_FULL = "full"
       }
 
-      Report report = new Report(id_user, id_train, trainCapacityString, comment);
+      Report report = new Report(id_user, id_train, trainCapacityString, comment, nextStopID);
       report.save();
+      // this is testing timestamps are returned from most recent to later.
+      for ( Report list: Report.all()){
+        System.out.println(list.getTimestamp());
+      }
+      //end of test
+      
+      response.redirect("/");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
 
+    post("/addReport", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      int trainCapacity = Integer.parseInt(request.queryParams("capacityRange"));
+      String trainReported= request.queryParams("trainReported");
+      String stopReported= request.queryParams("stopReported");
+      String reportComment = request.queryParams("reportComment");
+      User newUser = (request.session().attribute("user"));
       String url = String.format("/reports");
       response.redirect(url);
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
+
 
   }
 }
