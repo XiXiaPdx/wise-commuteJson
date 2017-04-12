@@ -139,6 +139,7 @@ SELECT pg_catalog.setval('reports_id_seq', 1, false);
 --
 
 COPY users (id, email, username, password, image) FROM stdin;
+1	\N	theEvan	eb	\N
 \.
 
 
@@ -146,7 +147,7 @@ COPY users (id, email, username, password, image) FROM stdin;
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
-SELECT pg_catalog.setval('users_id_seq', 1, false);
+SELECT pg_catalog.setval('users_id_seq', 1, true);
 
 
 --

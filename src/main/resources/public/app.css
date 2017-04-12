@@ -11,6 +11,10 @@
   margin-left: 30px;
   margin-right: 30px;
 }*/
+#navBarUserName{
+  color: white;
+  margin-left: 10px;
+}
 
 #sliderLeft{
   text-align: left;

@@ -10,32 +10,46 @@ public class App {
     externalStaticFileLocation(String.format("%s/src/main/resources/public", System.getProperty("user.dir")));
     String layout = "templates/layout.vtl";
 
+    before("/", (request, response) -> {
+      if (request.session().attribute("user") == null) {
+        response.redirect("/login");
+        }
+    });
+    before("/reports", (request, response) -> {
+      if (request.session().attribute("user") == null) {
+        response.redirect("/login");
+        }
+    });
+
     get("/", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
-      if ((request.session().attribute("user")) == null){
-       response.redirect("/login");
-       } else {
+  
+         User newUser = (request.session().attribute("user"));
+         model.put("newUser", newUser);
          model.put("template", "templates/index.vtl");
-       }
+
        return new ModelAndView(model, layout);
      } , new VelocityTemplateEngine());
 
     get("/login", (request, response) -> {
        Map<String, Object> model = new HashMap<String, Object>();
-       String warning = request.session().attribute("warning");
-       model.put("warning", warning);
+       User checkUser = request.session().attribute("warning");
+       model.put("warning", checkUser);
        return new ModelAndView(model, "templates/login.vtl");
      }, new VelocityTemplateEngine());
 
     get("/login/validate", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
-      String userID = request.queryParams("userID");
-      if (userID.equals("1234")) {
+      String userName = request.queryParams("userName");
+      String userPassWord = request.queryParams("userPassword");
+      User newUser = new User("", userName, userPassWord, "");
+
+      if (newUser.authenticate() != null) {
         request.session().attribute("warning", null);
-        request.session().attribute("user", userID);
+        request.session().attribute("user", newUser);
         response.redirect("/");
       } else {
-      request.session().attribute("warning", "fail");
+      request.session().attribute("warning", newUser);
       response.redirect("/login");
     }
     return null;
@@ -53,6 +67,8 @@ public class App {
 
     get("/reports", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
+      User newUser = (request.session().attribute("user"));
+      model.put("newUser", newUser);
       model.put("template", "templates/index.vtl");
       model.put("report", "templates/reports.vtl");
       return new ModelAndView(model, layout);
