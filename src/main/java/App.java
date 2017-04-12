@@ -31,9 +31,30 @@ public class App {
        return new ModelAndView(model, layout);
      } , new VelocityTemplateEngine());
 
+     post("/login/register", (request, response) -> {
+       Map<String, Object> model = new HashMap<String, Object>();
+       String email = request.queryParams("newUserEmail");
+       String username = request.queryParams("newUserName");
+       String password = request.queryParams("newUserPassWord");
+       String image = "";
+       User newUser = new User(email, username, password, image);
+       if (newUser.authenticateUserNameForNewUserRegistration() != null) {
+         request.session().attribute("userNameTaken", "fail");
+         response.redirect("/login");
+       } else {
+         request.session().attribute("userNameTaken", null);
+         newUser.save();
+         request.session().attribute("user", newUser);
+         response.redirect("/");
+       }
+       return null;
+     });
+
     get("/login", (request, response) -> {
        Map<String, Object> model = new HashMap<String, Object>();
        User checkUser = request.session().attribute("warning");
+       String userNameTakenCheck = request.session().attribute("userNameTaken");
+       model.put("userNameTaken", userNameTakenCheck);
        model.put("warning", checkUser);
        request.session().removeAttribute("warning");
        return new ModelAndView(model, "templates/login.vtl");

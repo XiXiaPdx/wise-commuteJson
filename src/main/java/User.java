@@ -82,6 +82,16 @@ public class User {
       return foundUserName;
     }
   }
+  //new method added by Evan to check if username is taken already at registration
+  public User authenticateUserNameForNewUserRegistration(){
+    try(Connection con = DB.sql2o.open()) {
+      String searchForUserName= "SELECT * FROM users WHERE username=:username;";
+      User foundUserName = con.createQuery(searchForUserName)
+        .addParameter("username", this.username)
+        .executeAndFetchFirst(User.class);
+      return foundUserName;
+    }
+  }
 
   public int getReportCount() {
     try(Connection con = DB.sql2o.open()) {
