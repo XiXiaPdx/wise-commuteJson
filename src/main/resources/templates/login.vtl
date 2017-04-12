@@ -22,8 +22,37 @@
           <input id="password" class="form-control" name="userPassword" placeholder='Enter your password' type="password"  required>
 
         </div>
-        <button type="submit" class="btn btn-default btn-lg"> Log In </button>
+        <button type="submit" class="btn btn-default btn-lg" id="logInButton"> Log In </button>
+        <button class="btn btn-default btn-lg" data-toggle="modal" data-target="#registerModal" id="registerButton"> Register</button>
       </form>
     </div>
+
+    <!-- modal -->
+    <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="registerModalLabel">Join the Wise Commute Community!</h4>
+          </div>
+          <form action="/register" method="post">
+            <div class="modal-body">
+              <div class=" form-group" id="newUserFormGroup">
+                #if($userNameTaken)
+                  <h5 id="warningUserName">That User Name is already taken</h5>
+                #end
+                <input id="newUserName" class="form-control" name="newUserName" placeholder='create your username' required>
+                <input id="newUserPassWord" class="form-control" name="newUserPassWord" placeholder='create your password' type="password"  required>
+                <input id="newUserEmail" class="form-control" name="newUserEmail" placeholder='enter your email' type="email"  required>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-default" id="reportSubmitButton">Submit</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- modal -->
   </body>
 </html>
