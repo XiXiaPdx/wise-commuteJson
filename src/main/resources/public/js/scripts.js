@@ -45,13 +45,12 @@ $(function(){
     function processXML(xml) {
       var trainRoute = $('#trainSelected').find(":selected").val();
       var trainArray = new Array();
-      console.log("working!");
       $(xml).find("arrival").each(function() {
         var shortSign = $(this).attr('shortSign');
         if(shortSign.includes(trainRoute)) {
           // Train name (fullSign)
           var fullSign = $(this).attr('fullSign');
-          // console.log("Fullsign: " + fullSign);
+          console.log("Fullsign: " + fullSign);
           // Delay
           var scheduledTime = parseInt($(this).attr('scheduled'));
           var estimatedTime = parseInt($(this).attr('estimated'));
@@ -61,12 +60,12 @@ $(function(){
           } else {
             delay = ((estimatedTime - scheduledTime) / 1000 / 60);
           }
-          // console.log("Delay: " + delay);
+          console.log("Delay: " + delay);
           // Arrival Time
           var scheduledDate = new Date(0);
           scheduledDate.setUTCMilliseconds(scheduledTime);
           var arrivalTime = scheduledDate.toLocaleTimeString();
-          // console.log("arrival time: " + arrivalTime);
+          console.log("arrival time: " + arrivalTime);
 
           var trainInformation = { fullSign: fullSign, delay: delay, arrival: arrivalTime };
 
@@ -84,8 +83,8 @@ $(function(){
       var count = 1;
       if(count <= 3) {
         $("#trainName" + count).text(train["fullSign"]);
-        console.log(train["fullSign"]);
-        console.log(train["delay"]);
+        // console.log(train["fullSign"]);
+        // console.log(train["delay"]);
         $("#trainDelay" + count).text(train["delay"]);
         $("#trainArrival" + count).text(train["arrival"]);
       }
