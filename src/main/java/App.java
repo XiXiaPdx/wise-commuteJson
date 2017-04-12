@@ -23,7 +23,7 @@ public class App {
 
     get("/", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
-  
+
          User newUser = (request.session().attribute("user"));
          model.put("newUser", newUser);
          model.put("template", "templates/index.vtl");
@@ -31,9 +31,36 @@ public class App {
        return new ModelAndView(model, layout);
      } , new VelocityTemplateEngine());
 
+     post("/login/register", (request, response) -> {
+       Map<String, Object> model = new HashMap<String, Object>();
+       String email = request.queryParams("newUserEmail");
+       String username = request.queryParams("newUserName");
+       String password = request.queryParams("newUserPassWord");
+       String image = "";
+       User newUser = new User(email, username, password, image);
+      //  newUser.save();
+      //  response.redirect("/login");
+      //  return null;
+       if (newUser.authenticateUserNameForNewUserRegistration() != null) {//If userName already exists
+         //This doesn't work. Doesn't bring up h5 warning
+         //BUT doesn't create new user in DB, THATS GOOD
+         request.session().attribute("userNameTaken", "fail");
+         response.redirect("/login");
+       } else {
+         request.session().attribute("userNameTaken", null);
+         newUser.save();
+         request.session().attribute("user", newUser);
+         //WONT show user name at top of screen
+         response.redirect("/");
+       }
+       return null;
+     });
+
     get("/login", (request, response) -> {
        Map<String, Object> model = new HashMap<String, Object>();
        User checkUser = request.session().attribute("warning");
+      //  User userNameTakenCheck = request.session().attribute("userNameTaken");
+      //  model.put("userNameTaken", userNameTakenCheck);
        model.put("warning", checkUser);
        return new ModelAndView(model, "templates/login.vtl");
      }, new VelocityTemplateEngine());
