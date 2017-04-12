@@ -47,7 +47,7 @@ public class App {
      request.session().removeAttribute("user");
      response.redirect("/login");
      return null;
-   }); 
+   });
 
 
 

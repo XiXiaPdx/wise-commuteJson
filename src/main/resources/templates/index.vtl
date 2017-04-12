@@ -2,14 +2,17 @@
 <!--index.vtl-->
 
 <div class="form-group" id="selectTrainAndStop">
-  <form action="/reports">
+  <form action="/reports" id="stopSearch">
   <select class=" form-control" id="trainSelected" required>
   <option value="">Choose A Train</option>
-    <option value="$Train.getTriMetId()">$Train.getName()</option>
+    <option id="train1" value="$Train.getTriMetId()"></option>
+    <!-- <option value="$Train.getTriMetId()">Red</option>
+    <option value="$Train.getTriMetId()">Yellow</option>
+    <option value="$Train.getTriMetId()">Blue</option> -->
    </select>
 <select class=" form-control" id="trainStopSelected" required>
 <option value="">Choose A Stop</option>
-  <option value="$Train.getTrainStopId()">$TrainStop.getName()</option>
+  <option id="stop1" value="$Train.getTrainStopId()">$TrainStop.getName()</option>
  </select>
  </form>
  </div>
