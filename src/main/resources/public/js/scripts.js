@@ -34,7 +34,7 @@ $(function(){
     $(this).parent('form').submit();
     var trainStop = $('#trainStopSelected').find(":selected").val();
     // var trainStop = "13132";
-    console.log(trainStop);
+    alert(trainStop);
     $.ajax({
       type: "GET",
       url: "https://developer.trimet.org/ws/v2/arrivals?locIDs=" + trainStop + "&xml=true&appID=3B5160342487A47D436E90CD9",
@@ -50,7 +50,7 @@ $(function(){
         if(shortSign.includes(trainRoute)) {
           // Train name (fullSign)
           var fullSign = $(this).attr('fullSign');
-          console.log("Fullsign: " + fullSign);
+          alert("Fullsign: " + fullSign);
           // Delay
           var scheduledTime = parseInt($(this).attr('scheduled'));
           var estimatedTime = parseInt($(this).attr('estimated'));
@@ -60,12 +60,12 @@ $(function(){
           } else {
             delay = ((estimatedTime - scheduledTime) / 1000 / 60);
           }
-          console.log("Delay: " + delay);
+          alert("Delay: " + delay);
           // Arrival Time
           var scheduledDate = new Date(0);
           scheduledDate.setUTCMilliseconds(scheduledTime);
           var arrivalTime = scheduledDate.toLocaleTimeString();
-          console.log("arrival time: " + arrivalTime);
+          alert("arrival time: " + arrivalTime);
 
           var trainInformation = { fullSign: fullSign, delay: delay, arrival: arrivalTime };
 
@@ -82,34 +82,34 @@ $(function(){
     trainArray.forEach(function(train) {
       var count = 1;
       if(count <= 3) {
-        $("#trainName" + count).text(train["fullSign"]);
+        $("#trainName").text(train["fullSign"]);
         // console.log(train["fullSign"]);
         // console.log(train["delay"]);
-        $("#trainDelay" + count).text(train["delay"]);
-        $("#trainArrival" + count).text(train["arrival"]);
+        $("#trainDelay").text(train["delay"]);
+        $("#trainArrival").text(train["arrival"]);
       }
       count++;
     });
     $(".userReports").slideDown();
   }
   // google maps
-  var myCenter = new google.maps.LatLng(45.5423508,-122.7945062);
-
-  function initialize() {
-    var mapProp = {
-    center:myCenter,
-    zoom:12,
-    scrollwheel:true,
-    draggable:true,
-    mapTypeId:google.maps.MapTypeId.ROADMAP
-  };
-
-  var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
-
-  var marker = new google.maps.Marker({
-  position:myCenter,
-  })
-  marker.setMap(map);
-  }
-  google.maps.event.addDomListener(window, 'load', initialize);
+  // var myCenter = new google.maps.LatLng(45.5423508,-122.7945062);
+  //
+  // function initialize() {
+  //   var mapProp = {
+  //   center:myCenter,
+  //   zoom:12,
+  //   scrollwheel:true,
+  //   draggable:true,
+  //   mapTypeId:google.maps.MapTypeId.ROADMAP
+  // };
+  //
+  // var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+  //
+  // var marker = new google.maps.Marker({
+  // position:myCenter,
+  // })
+  // marker.setMap(map);
+  // }
+  // google.maps.event.addDomListener(window, 'load', initialize);
 });
