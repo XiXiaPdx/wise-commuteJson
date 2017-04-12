@@ -35,6 +35,7 @@ public class App {
        Map<String, Object> model = new HashMap<String, Object>();
        User checkUser = request.session().attribute("warning");
        model.put("warning", checkUser);
+       request.session().removeAttribute("warning");
        return new ModelAndView(model, "templates/login.vtl");
      }, new VelocityTemplateEngine());
 
@@ -43,10 +44,12 @@ public class App {
       String userName = request.queryParams("userName");
       String userPassWord = request.queryParams("userPassword");
       User newUser = new User("", userName, userPassWord, "");
+      User checkThisUser = newUser.authenticate();
+      System.out.println("This is the user ID at Login--" + checkThisUser.getId());
 
-      if (newUser.authenticate() != null) {
+      if (checkThisUser != null) {
         request.session().attribute("warning", null);
-        request.session().attribute("user", newUser);
+        request.session().attribute("user", checkThisUser);
         response.redirect("/");
       } else {
       request.session().attribute("warning", newUser);
@@ -68,8 +71,11 @@ public class App {
     get("/reports", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       User newUser = (request.session().attribute("user"));
+      System.out.println("This is the user ID at gettingReport--" + newUser.getId());
+
       model.put("newUser", newUser);
       model.put("template", "templates/index.vtl");
+      model.put("reports", Report.all());
       model.put("report", "templates/reports.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
@@ -77,7 +83,7 @@ public class App {
     post("/addReport", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       User newUser = request.session().attribute("user");
-
+      System.out.println("This is the user ID on the Modal REport submit--" + newUser.getId());
 
       int id_user = newUser.getId();
       int id_train = Integer.parseInt(request.queryParams("id_train"));
@@ -101,23 +107,10 @@ public class App {
         System.out.println(list.getTimestamp());
       }
       //end of test
-      
+
       response.redirect("/");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
-
-    post("/addReport", (request, response) -> {
-      Map<String, Object> model = new HashMap<String, Object>();
-      int trainCapacity = Integer.parseInt(request.queryParams("capacityRange"));
-      String trainReported= request.queryParams("trainReported");
-      String stopReported= request.queryParams("stopReported");
-      String reportComment = request.queryParams("reportComment");
-      User newUser = (request.session().attribute("user"));
-      String url = String.format("/reports");
-      response.redirect(url);
-      return new ModelAndView(model, layout);
-    }, new VelocityTemplateEngine());
-
 
   }
 }
