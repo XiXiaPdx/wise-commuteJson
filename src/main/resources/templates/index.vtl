@@ -3,19 +3,17 @@
 
 <div class="form-group" id="selectTrainAndStop">
   <form action="/reports" id="stopSearch">
-  <select class=" form-control" id="trainSelected" required>
-  <option value="">Choose A Train</option>
-    <option id="train1" value="$Train.getTriMetId()"></option>
-    <!-- <option value="$Train.getTriMetId()">Red</option>
-    <option value="$Train.getTriMetId()">Yellow</option>
-    <option value="$Train.getTriMetId()">Blue</option> -->
-   </select>
-<select class=" form-control" id="trainStopSelected" required>
-<option value="">Choose A Stop</option>
-  <option id="stop1" value="$Train.getTrainStopId()">$TrainStop.getName()</option>
- </select>
- </form>
- </div>
+    <select class=" form-control" id="trainSelected" required>
+      <option value="">Choose A Train</option>
+      <option id="greenPSU" value="Green Line to City Center/PSU">Green Line To City Center/PSU</option>
+      <option id="greenClackamas" value="Green Line to Clackamas">Green Line To Clackamas</option>
+     </select>
+    <select class="form-control" id="trainStopSelected" required>
+      <option value="">Choose A Stop</option>
+      <!-- Create Stop list based off train color -->
+    </select>
+  </form>
+</div>
 
 
 
