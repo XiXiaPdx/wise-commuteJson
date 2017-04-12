@@ -50,7 +50,8 @@ $(function(){
         var shortSign = $(this).attr('shortSign');
         if(shortSign.includes(trainRoute)) {
           // Vehicle ID
-          
+          var vehicleID = $(this).attr('vehicleID');
+          alert("Vehicle ID: " + vehicleID);
           // Train name (fullSign)
           var fullSign = $(this).attr('fullSign');
           alert("Fullsign: " + fullSign);
@@ -124,10 +125,11 @@ $(function(){
   var url = location.href;
   if(url.includes("reports")) {
     var trainArray = JSON.parse(localStorage.getItem("trainArray"));
+    // not doing foreach, see code below!
     trainArray.forEach(function(train) {
       var count = 1;
       if(count <= 3) {
-        $("#trainName").text(train["fullSign"]);
+        $("#trainName").text(trainArray[0]["fullSign"]);
         // console.log(train["fullSign"]);
         // console.log(train["delay"]);
         $("#trainDelay").text(train["delay"]);
