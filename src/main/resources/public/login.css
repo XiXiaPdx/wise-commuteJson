@@ -24,6 +24,19 @@ body {
   box-shadow: 5px 5px 2px #084c8d;
 }
 
+#logInButton{
+  background-color: #084c8d;
+  color: white;
+  border: none;
+}
+
+#registerButton{
+  background-color: Transparent;
+  border: solid #084c8d;
+  float:right;
+  color:white;
+}
+
 #password{
   margin-top: 20px;
 }
