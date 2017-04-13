@@ -52,6 +52,7 @@ public class App {
 
     get("/login", (request, response) -> {
        Map<String, Object> model = new HashMap<String, Object>();
+       Report.find(6).timeSince();
        User checkUser = request.session().attribute("warning");
        String userNameTakenCheck = request.session().attribute("userNameTaken");
        model.put("userNameTaken", userNameTakenCheck);
@@ -90,9 +91,8 @@ public class App {
 
     get("/reports", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
-      User newUser = (request.session().attribute("user"));
-      System.out.println("This is the user ID at gettingReport--" + newUser.getId());
 
+      User newUser = (request.session().attribute("user"));
       model.put("newUser", newUser);
       model.put("template", "templates/index.vtl");
       model.put("reports", Report.all());
@@ -103,8 +103,6 @@ public class App {
     post("/addReport", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       User newUser = request.session().attribute("user");
-      System.out.println("This is the user ID on the Modal REport submit--" + newUser.getId());
-
       int id_user = newUser.getId();
       int id_train = Integer.parseInt(request.queryParams("id_train"));
       String comment = request.queryParams("reportComment");
