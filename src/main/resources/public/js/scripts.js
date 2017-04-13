@@ -293,7 +293,7 @@ $(function(){
 
     var trainStop = $('#trainStopSelected').find(":selected").val();
     // var trainStop = "13132";
-    alert(trainStop);
+  
     $.ajax({
       type: "GET",
       url: "https://developer.trimet.org/ws/v2/arrivals?locIDs=" + trainStop + "&xml=true&appID=3B5160342487A47D436E90CD9",
