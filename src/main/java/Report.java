@@ -92,8 +92,8 @@ public class Report {
     Long timeDifference = (rightNow - reportTime);
     Long minutes = timeDifference/60;
     String timeSince="";
-    if (minutes >= 10) {
-      return "10+ minutes";
+    if (minutes >= 59) {
+      return "59+ minutes";
     }
     Long seconds = timeDifference % 60;
     if (seconds > 9){
@@ -103,7 +103,7 @@ public class Report {
     }
     if (minutes == 0){
       timeSince= timeSince+" seconds";
-    } 
+    }
     return timeSince;
   }
 
