@@ -121,9 +121,7 @@ public class App {
       Report report = new Report(id_user, id_train, trainCapacityString, comment, nextStopID);
       report.save();
       // this is testing timestamps are returned from most recent to later.
-      for ( Report list: Report.all()){
-        System.out.println(list.getTimestamp());
-      }
+      
       //end of test
 
       response.redirect("/");

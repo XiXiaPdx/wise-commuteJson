@@ -130,6 +130,17 @@ COPY reports (id, id_user, id_train, train_capacity, comment, "timestamp", id_ne
 7	1	100	Full	2nd test	2017-04-12 14:32:36.325643	8307
 8	1	100	Empty	3rd test	2017-04-12 14:32:48.450977	8307
 9	1	200	Half	4th test	2017-04-12 14:33:24.424655	8307
+10	1	100	Full	dfs	2017-04-13 13:03:45.219021	8307
+11	1	100	Empty	fdsffds	2017-04-13 13:03:52.623384	8308
+12	1	101	Half	test 	2017-04-13 14:28:25.250346	9848
+13	2	102	Full	Yeah!!!!	2017-04-13 14:42:05.156732	8377
+14	2	102	Empty	do I smell? everyone is gone...	2017-04-13 14:42:22.258684	8383
+15	2	102	Full	I overslept my stops!	2017-04-13 14:42:44.059118	9848
+16	3	302	Half	SCIENCE!!!!	2017-04-13 14:43:40.200018	13727
+17	3	401	Empty	I need to stop at trader joes...	2017-04-13 14:44:02.406646	8373
+18	3	301	Half	Nordstrom's Rack is having a sale!	2017-04-13 14:44:33.182601	7646
+19	3	502	Full	Home sweet home	2017-04-13 14:45:15.844936	11501
+20	3	302	Empty	ALERT:  TriMet Ticket Check Just WENT THROUGH HERE!!!	2017-04-13 14:45:51.561037	13722
 \.
 
 
@@ -137,7 +148,7 @@ COPY reports (id, id_user, id_train, train_capacity, comment, "timestamp", id_ne
 -- Name: reports_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
-SELECT pg_catalog.setval('reports_id_seq', 9, true);
+SELECT pg_catalog.setval('reports_id_seq', 20, true);
 
 
 --
@@ -146,6 +157,8 @@ SELECT pg_catalog.setval('reports_id_seq', 9, true);
 
 COPY users (id, email, username, password, image) FROM stdin;
 1	\N	theEvan	eb	\N
+2	fun@gmail.com	Chris	fun	
+3	fun@gmail.com	XX	fun	
 \.
 
 
@@ -153,7 +166,7 @@ COPY users (id, email, username, password, image) FROM stdin;
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
-SELECT pg_catalog.setval('users_id_seq', 1, true);
+SELECT pg_catalog.setval('users_id_seq', 3, true);
 
 
 --
