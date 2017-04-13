@@ -54,6 +54,16 @@ public class Report {
     return this.timestamp;
   }
 
+  public String getUsername() {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT username FROM users WHERE id = :id;";
+      String userName = con.createQuery(sql)
+        .addParameter("id", this.id_user)
+        .executeAndFetchFirst(String.class);
+      return userName;
+    }
+  }
+
   public void save() {
     try(Connection con = DB.sql2o.open()) {
       String sql = "INSERT INTO reports (id_user, id_train, train_capacity, comment, timestamp, id_nextstop) VALUES (:id_user, :id_train, :train_capacity, :comment, now(), :id_nextstop);";
