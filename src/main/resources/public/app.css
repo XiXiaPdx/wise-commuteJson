@@ -31,6 +31,7 @@
 #navBarHeaderText{
   color:white;
   margin-left: 20px;
+  font-family: 'Baloo Bhaina';
 }
 
 #submitReportButton{
@@ -108,31 +109,64 @@
 
 
 .userReports{
-  display:none;
+  /*display:none;*/
+  background-color: transparent;
+  border-radius: 10px;
   word-wrap: break-word;
   width:85%;
   margin-left: auto;
   margin-right: auto;
 }
 
-.userReports button{
-  text-align: center;
-}
-
 .userThumbNail{
-  position: fixed;
-  top: 0px;
-  left:0px;
+width:50px;
+height:50px;
+float:left;
 }
 
-.starButton{
-  background-color: transparent;
-  border: none;
-  color: #ff5a36;
-  font-size: 25px;
+.reportUserName{
+  margin-left:20px;
 }
 
+.reportCapacityDisplay {
+  height:50px;
+  font-size: 40px;
+  text-align: center;
+  font-family: 'Baloo Bhaina';
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  overflow: hidden;
+}
 
+.full{
+  background-color: red;
+}
+.half{
+  background-color: #ff5a36;
+}
+.empty{
+  background-color: #2ab20c;
+}
+.reportMinutesAgoReported{
+  font-family: 'Baloo Bhaina';
+  height:50px;
+  font-size: 16px;
+  color:white;
+  background-color: #084c8d;
+  overflow: hidden;
+}
+
+.minuteFontSize{
+  font-size: 40px;
+}
+
+.reportOtherInfo{
+  background-color: white;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  padding: 10px;
+
+}
 
 .templateHolder{
   margin-top:115px;

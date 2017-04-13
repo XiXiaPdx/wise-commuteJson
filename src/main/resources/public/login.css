@@ -8,6 +8,11 @@ body {
   max-height: 100%;
   background-image: linear-gradient(to top, #2C2C2D 0%, #0A1330 100%);
 }
+
+#appLogo{
+  font-family: 'Baloo Bhaina';
+
+}
 .header {
   position: fixed;
   left:0;
@@ -36,14 +41,13 @@ body {
 }
 
 #registerButton{
-  background-color: #00ff00;
-  /*border: solid #084c8d;*/
-  color:black;
+  background-color: #2ab20c;
+border:none;
+float:right;
+  color:white;
   padding: 10px;
-  padding-top: 9px;
-  padding-bottom: 9px;
-  margin-top: 5px;
-  font-size: 16px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 #password{
