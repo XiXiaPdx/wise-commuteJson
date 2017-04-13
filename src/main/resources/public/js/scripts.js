@@ -143,6 +143,151 @@ $(function(){
     }
   });
 
+  //Report Screen Train Stop Selector
+  $("#reportTrainSelected").change(function() {
+    // if the option is green then add green line stops..
+    var trainRoute = $("#reportTrainSelected").val();
+
+    if (trainRoute === "101") {
+      $("#reportTrainStopSelected").empty().append(
+        '<option>Choose A Stop</option>' +
+        '<option value="9848">Hatfield Government Center</option>' +
+        '<option value="9838">Fair Complex/Hillsboro Airport</option>' +
+        '<option value="9831">Willow Creek/SW 185th Ave</option>' +
+        '<option value="9830">Elmonica/SW 170th Ave</option>' +
+        '<option value="9821">Beaverton Transit Center</option>' +
+        '<option value="9969">Sunset Transit Center</option>' +
+        '<option value="10120">Washington Park</option>' +
+        '<option value="9758">Providence Park</option>' +
+        '<option value="8334">Pioneer Square South</option>' +
+        '<option value="8340">Rose Quarter</option>' +
+        '<option value="8344">Hollywood/NE 42nd Ave</option>' +
+        '<option value="8347">Gateway/NE 99th Ave</option>' +
+        '<option value="8349">E 122nd Ave</option>' +
+        '<option value="8355">Ruby Junction/E 197th Ave</option>' +
+        '<option value="8359">Cleveland Ave</option>'
+      );
+    } else if (trainRoute === "102") {
+      $("#reportTrainStopSelected").empty().append(
+        '<option>Choose A Stop</option>' +
+        '<option value="8359">Cleveland Ave</option>' +
+        '<option value="8362">Ruby Junction/E 197th Ave</option>' +
+        '<option value="8368">E 122nd Ave</option>' +
+        '<option value="8370">Gateway/NE 99th Ave</option>' +
+        '<option value="8373">Hollywood/NE 42nd Ave</option>' +
+        '<option value="8377">Rose Quarter</option>' +
+        '<option value="8383">Pioneer Square North</option>' +
+        '<option value="9757">Providence Park</option>' +
+        '<option value="10121">Washington Park</option>' +
+        '<option value="9624">Sunset Transit Center</option>' +
+        '<option value="9818">Beaverton Transit Center</option>' +
+        '<option value="9829">Elmonica/SW 170th Ave</option>' +
+        '<option value="9833">Willow Creek/SW 185th Ave</option>' +
+        '<option value="9837">Fair Complex/Hillsboro Airport</option>' +
+        '<option value="9848">Hatfield Government Center</option>'
+      );
+    } else if(trainRoute === "201") {
+      $("#reportTrainStopSelected").empty().append(
+        '<option>Choose A Stop</option>' +
+        '<option value="13132">Clackamas Town Center</option>' +
+        '<option value="13135">Lents/SE Foster Rd</option>' +
+        '<option value="8370">Gateway/NE 99th Ave</option>' +
+        '<option value="8373">Hollywood/NE 42nd Ave</option>' +
+        '<option value="8377">Rose Quarter</option>' +
+        '<option value="7601">Union Station/NW 5th & Glisan</option>' +
+        '<option value="7646">Pioneer Place/SW 5th Ave</option>' +
+        '<option value="7606">PSU South/SW 5th & Jackson</option>'
+      );
+    } else if (trainRoute === "202") {
+      $("#reportTrainStopSelected").empty().append(
+        '<option>Choose A Stop</option>' +
+        '<option value="10293">PSU South/SW 6th & College</option>' +
+        '<option value="7777">Pioneer Courthouse/SW 6th Ave</option>' +
+        '<option value="7763">Union Station/NW 6th & Hoyt</option>' +
+        '<option value="8340">Rose Quarter</option>' +
+        '<option value="8344">Hollywood/NE 42nd Ave</option>' +
+        '<option value="8347">Gateway/NE 99th Ave</option>' +
+        '<option value="13128">Lents/SE Foster Rd</option>' +
+        '<option value="13132">Clackamas Town Center</option>'
+      );
+    } else if (trainRoute === "301") {
+      $("#reportTrainStopSelected").empty().append(
+        '<option>Choose A Stop</option>' +
+        '<option value="7601">Union Station/NW 5th Glisan</option>' +
+        '<option value="7646">Pioneer Place/SW 5th Ave</option>' +
+        '<option value="7606">PSU South/SW 5th & Jackson</option>' +
+        '<option value="13711">South Waterfront/SW Moody</option>' +
+        '<option value="13712">OMSI/SE Water</option>' +
+        '<option value="13715">SE 17th Ave & Holgate Blvd</option>' +
+        '<option value="13717">SE Tacoma/Johnson Creek</option>' +
+        '<option value="13718">Milwaukie/Main St</option>' +
+        '<option value="13720">SE Park Ave</option>'
+      );
+    } else if (trainRoute === "302") {
+      $("#reportTrainStopSelected").empty().append(
+        '<option>Choose A Stop</option>' +
+        '<option value="13720">SE Park Ave</option>' +
+        '<option value="13721">Milwaukie/Main St</option>' +
+        '<option value="13722">SE Tacoma/Johnson Creek</option>' +
+        '<option value="13724">SE 17th Ave & Holgate Blvd</option>' +
+        '<option value="13727">OMSI/SE Water</option>' +
+        '<option value="13728">South Waterfront/SW Moody</option>' +
+        '<option value="10293">PSU South/SW 6th & College</option>' +
+        '<option value="7777">Pioneer Courthouse/SW 6th Ave</option>' +
+        '<option value="7763">Union Station/NW 6th & Hoyt</option>'
+      );
+    } else if (trainRoute === "401") {
+      $("#reportTrainStopSelected").empty().append(
+        '<option>Choose A Stop</option>' +
+        '<option value="10579">Portland Int\'l Airport</option>' +
+        '<option value="8370">Gateway/NE 99th Ave</option>' +
+        '<option value="8373">Hollywood/NE 42nd Ave</option>' +
+        '<option value="8377">Rose Quarter</option>' +
+        '<option value="8383">Pioneer Square North</option>' +
+        '<option value="9757">Providence Park</option>' +
+        '<option value="10121">Washington Park</option>' +
+        '<option value="9624">Sunset Transit Center</option>' +
+        '<option value="9818">Beaverton Transit Center</option>'
+      );
+    } else if (trainRoute === "402") {
+      $("#reportTrainStopSelected").empty().append(
+        '<option>Choose A Stop</option>' +
+        '<option value="9821">Beaverton Transit Center</option>' +
+        '<option value="9969">Sunset Transit Center</option>' +
+        '<option value="10120">Washington Park</option>' +
+        '<option value="9758">Providence Park</option>' +
+        '<option value="8334">Pioneer Square South</option>' +
+        '<option value="8340">Rose Quarter</option>' +
+        '<option value="8344">Hollywood/NE 42nd Ave</option>' +
+        '<option value="8347">Gateway/NE 99th Ave</option>' +
+        '<option value="10579">Portland Int\'l Airport</option>'
+      );
+    } else if (trainRoute === "501") {
+      $("#reportTrainStopSelected").empty().append(
+        '<option>Choose A Stop</option>' +
+        '<option value="10293">PSU South/SW 6th & College</option>' +
+        '<option value="7777">Pioneer Courthouse/SW 6th Ave</option>' +
+        '<option value="7763">Union Station/NW 6th & Hoyt</option>' +
+        '<option value="11508">Interstate/Rose Quarter</option>' +
+        '<option value="11511">N Prescott St</option>' +
+        '<option value="11514">N Lombard</option>' +
+        '<option value="11498">Expo Center</option>'
+      );
+    } else if (trainRoute === "502") {
+      $("#reportTrainStopSelected").empty().append(
+        '<option>Choose A Stop</option>' +
+        '<option value="11498">Expo Center</option>' +
+        '<option value="11501">N Lombard Transit</option>' +
+        '<option value="11504">N Prescott St</option>' +
+        '<option value="11507">Interstate/Rose Quarter</option>' +
+        '<option value="7601">Union Station/NW 5th & Gilsan</option>' +
+        '<option value="7646">Pioneer Place/SW 5th Ave</option>' +
+        '<option value="7606">PSU South/SW 5th & Jackson</option>'
+      );
+    }
+  });
+  //End report screen train stop selector
+
   $("#trainStopSelected").change(function() {
     $(this).parent('form').submit();
 
@@ -205,8 +350,8 @@ $(function(){
       $("#trainName").text(trainArray[0]["fullSign"]);
       // console.log(train["fullSign"]);
       // console.log(train["delay"]);
-      $("#trainDelay").text(trainArray[0]["delay"]);
-      $("#trainArrival").text(trainArray[0]["arrival"]);
+      $("#trainDelay").text("Delay: " + trainArray[0]["delay"]);
+      $("#trainArrival").text("Arrival Time: " + trainArray[0]["arrival"]);
     } else {
       $("#trainName").text("Train was null");
       console.log("Error: TrainArray is null");
