@@ -50,4 +50,14 @@ public class ReportTest {
     assertEquals(Report.getReportsByTrainId(1).get(0).getComment(), firstReport.getComment());
   }
 
+  @Test
+  public void getUsername_returnsUserName_true() {
+    User firstUser = new User("xyz@gmail.com", "xyz", "1234password", "www.imgur.com/harambe.jpg");
+    firstUser.save();
+    Report firstReport = new Report(firstUser.getId(), 1, "full", "train is packed, RIP!", 8306);
+    firstReport.save();
+
+    assertEquals(firstUser.getUsername(), firstReport.getUsername());
+  }
+
 }
