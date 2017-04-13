@@ -25,6 +25,7 @@ $(function(){
       );
     } else if (trainRoute === "Blue to Hillsboro") {
       $("#trainStopSelected").empty().append(
+        '<option>Choose A Stop</option>' +
         '<option value="8359">Cleveland Ave</option>' +
         '<option value="8362">Ruby Junction/E 197th Ave</option>' +
         '<option value="8368">E 122nd Ave</option>' +
@@ -119,6 +120,7 @@ $(function(){
       );
     } else if (trainRoute === "Yellow Line to Expo Ctr") {
       $("#trainStopSelected").empty().append(
+        '<option>Choose A Stop</option>' +
         '<option value="10293">PSU South/SW 6th & College</option>' +
         '<option value="7777">Pioneer Courthouse/SW 6th Ave</option>' +
         '<option value="7763">Union Station/NW 6th & Hoyt</option>' +
