@@ -64,16 +64,25 @@
           </div>
           <input type="range" name="trainCapacity" id="capacityRange" min="1" max="99">
           <div class="form-group" id="reportTrainAndStop">
-        <select class=" form-control" name="id_train" id="reportTrainSelected" required>
-        <option value="">Choose A Train</option>
-          <option value="100">Green Line</option>
-          <option value="200">Red Line</option>
-         </select>
-      <select class=" form-control" name="id_stop" id="reportTrainStopSelected" required>
-      <option value="">Choose A Stop</option>
-      <option value="8307">Rose Quarter</option>
-      <option value="8308">Gateway Transit Center</option>
-       </select>
+
+            <select class="form-control" name="id_train" id="reportTrainSelected" required>
+              <option value="">Choose A Train</option>
+              <option id="blueGresham" value="101">Blue Line To Gresham</option>
+              <option id="blueHillboror" value="102">Blue Line To Hillboro</option>
+              <option id="greenCity" value="201">Green Line To City Center/PSU</option>
+              <option id="greenClackamas" value="202">Green Line To Clackamas</option>
+              <option id="orangeMilwaukie" value="301">Orange Line To Milwaukie</option>
+              <option id="orangeCity" value="302">Orange Line To City Center</option>
+              <option id="redBeaverton" value="401">Red Line To Beaverton</option>
+              <option id="redPDX" value="402">Red Line To PDX</option>
+              <option id="yellowExpo" value="501">Yellow Line To Expo Center</option>
+              <option id="yellowCity" value="502">Yellow Line To City Center/PSU</option>
+             </select>
+
+             <select class="form-control" name="id_stop" id="reportTrainStopSelected" required>
+               <option value="">Choose A Stop</option>
+               <!-- Create Stop list based off train color -->
+             </select>
            </div>
           <div class="form-group" >
             <textarea type="text" class="form-control" id="reportComment" name="reportComment" maxlength="140"></textarea>
