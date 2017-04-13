@@ -66,7 +66,6 @@ public class App {
       String userPassWord = request.queryParams("userPassword");
       User newUser = new User("", userName, userPassWord, "");
       User checkThisUser = newUser.authenticate();
-      System.out.println("This is the user ID at Login--" + checkThisUser.getId());
 
       if (checkThisUser != null) {
         request.session().attribute("warning", null);

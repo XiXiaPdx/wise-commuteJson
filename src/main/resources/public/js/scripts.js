@@ -33,6 +33,7 @@ $(function(){
 
   $("#trainStopSelected").change(function() {
     $(this).parent('form').submit();
+
     var trainStop = $('#trainStopSelected').find(":selected").val();
     // var trainStop = "13132";
     alert(trainStop);
@@ -138,6 +139,7 @@ $(function(){
       count++;
     });
     $(".userReports").slideDown();
+
   }
   // google maps
   var myCenter = new google.maps.LatLng(45.5423508,-122.7945062);
