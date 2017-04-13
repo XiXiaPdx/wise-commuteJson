@@ -116,6 +116,7 @@
   width:85%;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 10px;
 }
 
 .userThumbNail{
@@ -147,7 +148,7 @@ float:left;
   background-color: red;
 }
 .half{
-  background-color: #ff5a36;
+  background-color: #ffff4d;
 }
 .empty{
   background-color: #2ab20c;
