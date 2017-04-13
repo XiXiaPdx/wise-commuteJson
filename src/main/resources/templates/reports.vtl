@@ -10,9 +10,21 @@
 #foreach ($report in $reports)
 <div class="container userReports" >
   <div class="row">
+    #if ($report.getTrainCapacity() == "Half")
+    <div class="col-xs-6 reportCapacityDisplay half" >
+      $report.getTrainCapacity()
+    </div>
+    #end
+    #if ($report.getTrainCapacity() == "Full")
     <div class="col-xs-6 reportCapacityDisplay full" >
       $report.getTrainCapacity()
     </div>
+    #end
+    #if ($report.getTrainCapacity() == "Empty")
+    <div class="col-xs-6 reportCapacityDisplay empty" >
+      $report.getTrainCapacity()
+    </div>
+    #end
     <div class="col-xs-6 reportMinutesAgoReported ">
       <span class="minuteFontSize">3</span> minutes ago.
     </div>

@@ -143,6 +143,19 @@ $(function(){
   }
   // google maps
   var myCenter = new google.maps.LatLng(45.5423508,-122.7945062);
+  // function initMap() {
+  //   // var myCenter = {lat: -25.363, lng: 131.044};
+  //   var map = new google.maps.Map(document.getElementById('map'), {
+  //     zoom: 12,
+  //     center: myCenter
+  //
+  //   });
+  //   var marker = new google.maps.Marker({
+  //     position: myCenter,
+  //     map: map
+  //   });
+  // }
+
 
   function initialize() {
     var mapProp = {
