@@ -107,7 +107,11 @@
 
 }
 
-
+.logoFont{
+  font-family: 'Baloo Bhaina';
+  font-size: 20px;
+  color: white;
+}
 .userReports{
   /*display:none;*/
   background-color: transparent;
