@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.sql.Timestamp;
 import java.util.Collections;
+import java.time.Instant;
 
 public class Report {
 
@@ -83,6 +84,27 @@ public class Report {
         .addParameter("id", this.id)
         .executeAndFetchFirst(Timestamp.class);
     }
+  }
+
+  public String timeSince() {
+    Long rightNow = Instant.now().getEpochSecond();
+    Long reportTime = (this.getTimestamp().getTime()/1000);
+    Long timeDifference = (rightNow - reportTime);
+    Long minutes = timeDifference/60;
+    String timeSince="";
+    if (minutes >= 10) {
+      return "10+ minutes";
+    }
+    Long seconds = timeDifference % 60;
+    if (seconds > 9){
+      timeSince=(minutes+":"+seconds);
+    } else {
+      timeSince=(minutes+":0"+seconds);
+    }
+    if (minutes == 0){
+      timeSince= timeSince+" seconds";
+    } 
+    return timeSince;
   }
 
   public static List<Report> all() {
