@@ -48,11 +48,11 @@ $(function(){
       var trainRoute = $('#trainSelected').find(":selected").val();
       var trainArray = new Array();
       $(xml).find("arrival").each(function() {
+        // Train name (shortSign)
+        var shortSign = $(this).attr('shortSign');
         // count to stop at 1
         var count = 0;
         if(shortSign.includes(trainRoute) && count === 0) {
-          // Train name (shortSign)
-          var shortSign = $(this).attr('shortSign');
           // Vehicle ID
           var trainId = $(this).attr('vehicleID');
           // Train name (fullSign)
@@ -99,6 +99,37 @@ $(function(){
       $("#trainName").text("Train was null");
       console.log("Error: TrainArray is null");
     }
+    /**** Google Map API ****/
+    var myCenter = new google.maps.LatLng(45.5423508,-122.7945062);
+    // function initMap() {
+    //   // var myCenter = {lat: -25.363, lng: 131.044};
+    //   var map = new google.maps.Map(document.getElementById('map'), {
+    //     zoom: 12,
+    //     center: myCenter
+    //
+    //   });
+    //   var marker = new google.maps.Marker({
+    //     position: myCenter,
+    //     map: map
+    //   });
+    // }
+    function initialize() {
+      var mapProp = {
+      center:myCenter,
+      zoom:12,
+      scrollwheel:true,
+      draggable:true,
+      mapTypeId:google.maps.MapTypeId.ROADMAP
+    };
+
+    var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+
+    var marker = new google.maps.Marker({
+    position:myCenter,
+    })
+    marker.setMap(map);
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
   }
   $(".userReports").slideDown();
 
@@ -134,40 +165,4 @@ $(function(){
       localStorage.setItem("trainMetaArray", trainMetaArray);
     }
   }
-
-
-
-  // google maps
-  var myCenter = new google.maps.LatLng(45.5423508,-122.7945062);
-  // function initMap() {
-  //   // var myCenter = {lat: -25.363, lng: 131.044};
-  //   var map = new google.maps.Map(document.getElementById('map'), {
-  //     zoom: 12,
-  //     center: myCenter
-  //
-  //   });
-  //   var marker = new google.maps.Marker({
-  //     position: myCenter,
-  //     map: map
-  //   });
-  // }
-
-
-  function initialize() {
-    var mapProp = {
-    center:myCenter,
-    zoom:12,
-    scrollwheel:true,
-    draggable:true,
-    mapTypeId:google.maps.MapTypeId.ROADMAP
-  };
-
-  var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
-
-  var marker = new google.maps.Marker({
-  position:myCenter,
-  })
-  marker.setMap(map);
-  }
-  google.maps.event.addDomListener(window, 'load', initialize);
 });
