@@ -6,17 +6,24 @@
 
 </div>
 
+<!-- new report display, update Wednesday evening.  -->
 #foreach ($report in $reports)
-<div class="well userReports" >
-<img src="" class="userThumbNail">Tiny Image here</img>
-<h4> User ID $report.getUserId()- Wisdom Added - $report.UserName().numberOfReportsSubmitted()  </h4>
-<p> Next Stop: $report.getNextStopId()</p>
-<p> Train Capacity - $report.getTrainCapacity() </p>
-<p> User Comment: $report.getComment()</p>
-<p> Report Time: $report.getTimestamp()</p>
-<p> Train ID: $report.getTrainId()</p>
-<!-- <button type="button" class="btn btn-default btn-md starButton">
-  <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
-</button> -->
+<div class="container userReports" >
+  <div class="row">
+    <div class="col-xs-6 reportCapacityDisplay full" >
+      $report.getTrainCapacity()
+    </div>
+    <div class="col-xs-6 reportMinutesAgoReported ">
+      <span class="minuteFontSize">3</span> minutes ago.
+    </div>
+  </div>
+  <div class="row reportOtherInfo">
+    <h4> Train $report.getTrainId() is now X minutes away from $report.getNextStopId()  </h4>
+    <div class="well">
+      User Comment: $report.getComment()
+    </div>
+    <img src="/img/placeholder.png" class="userThumbNail">
+    <h4 class="reportUserName"> $report.getUserId()</h4>
+  </div>
 </div>
 #end
