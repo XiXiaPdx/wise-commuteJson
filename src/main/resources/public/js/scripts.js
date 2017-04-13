@@ -48,14 +48,16 @@ $(function(){
       var trainRoute = $('#trainSelected').find(":selected").val();
       var trainArray = new Array();
       $(xml).find("arrival").each(function() {
-        var shortSign = $(this).attr('shortSign');
-        if(shortSign.includes(trainRoute)) {
+        // count to stop at 1
+        var count = 0;
+        if(shortSign.includes(trainRoute) && count === 0) {
+          // Train name (shortSign)
+          var shortSign = $(this).attr('shortSign');
           // Vehicle ID
-          var vehicleID = $(this).attr('vehicleID');
-          alert("Vehicle ID: " + vehicleID);
+          var trainId = $(this).attr('vehicleID');
           // Train name (fullSign)
           var fullSign = $(this).attr('fullSign');
-          alert("Fullsign: " + fullSign);
+          console.log("Fullsign: " + fullSign);
           // Delay
           var scheduledTime = parseInt($(this).attr('scheduled'));
           var estimatedTime = parseInt($(this).attr('estimated'));
@@ -65,82 +67,76 @@ $(function(){
           } else {
             delay = ((estimatedTime - scheduledTime) / 1000 / 60);
           }
-          alert("Delay: " + delay);
+          console.log("Delay: " + delay);
           // Arrival Time
           var scheduledDate = new Date(0);
           scheduledDate.setUTCMilliseconds(scheduledTime);
           var arrivalTime = scheduledDate.toLocaleTimeString();
-          alert("arrival time: " + arrivalTime);
+          console.log("arrival time: " + arrivalTime);
 
-          var trainInformation = { fullSign: fullSign, delay: delay, arrival: arrivalTime };
+          var trainInformation = { fullSign: fullSign, delay: delay, arrival: arrivalTime, trainId: trainId };
 
           trainArray.push(trainInformation);
         }
+        count = 1;
       });
       localStorage.clear();
       localStorage.setItem("trainArray", JSON.stringify(trainArray));
     }
-
-    // $.ajax({
-    //   type: "GET",
-    //   url: "https://developer.trimet.org/ws/v2/vehicles?locIDs=" + trainStop + "&xml=true&appID=3B5160342487A47D436E90CD9",
-    //   dataType: "xml",
-    //   success: processVehicleXML
-    // });
-    //
-    // function processVehicleXML(xml) {
-    //   var trainRoute = $('#trainSelected').find(":selected").val();
-    //   var trainArray = new Array();
-    //   $(xml).find("arrival").each(function() {
-    //     var shortSign = $(this).attr('shortSign');
-    //     if(shortSign.includes(trainRoute)) {
-    //       // Train name (fullSign)
-    //       var fullSign = $(this).attr('fullSign');
-    //       alert("Fullsign: " + fullSign);
-    //       // Delay
-    //       var scheduledTime = parseInt($(this).attr('scheduled'));
-    //       var estimatedTime = parseInt($(this).attr('estimated'));
-    //       var delay;
-    //       if(scheduledTime > estimatedTime) {
-    //         delay = ((scheduledTime - estimatedTime) / 1000 / 60);
-    //       } else {
-    //         delay = ((estimatedTime - scheduledTime) / 1000 / 60);
-    //       }
-    //       alert("Delay: " + delay);
-    //       // Arrival Time
-    //       var scheduledDate = new Date(0);
-    //       scheduledDate.setUTCMilliseconds(scheduledTime);
-    //       var arrivalTime = scheduledDate.toLocaleTimeString();
-    //       alert("arrival time: " + arrivalTime);
-    //
-    //       var trainInformation = { fullSign: fullSign, delay: delay, arrival: arrivalTime };
-    //
-    //       trainArray.push(trainInformation);
-    //     }
-    //   });
-    //   localStorage.clear();
-    //   localStorage.setItem("trainArray", JSON.stringify(trainArray));
-    // }
   });
 
   var url = location.href;
   if(url.includes("reports")) {
     var trainArray = JSON.parse(localStorage.getItem("trainArray"));
-    // not doing foreach, see code below!
-    trainArray.forEach(function(train) {
-      var count = 1;
-      if(count <= 3) {
-        $("#trainName").text(trainArray[0]["fullSign"]);
-        // console.log(train["fullSign"]);
-        // console.log(train["delay"]);
-        $("#trainDelay").text(train["delay"]);
-        $("#trainArrival").text(train["arrival"]);
-      }
-      count++;
-    });
-    $(".userReports").slideDown();
-
+    if(trainArray !== null) {
+      // not doing foreach, see code below
+      $("#trainName").text(trainArray[0]["fullSign"]);
+      // console.log(train["fullSign"]);
+      // console.log(train["delay"]);
+      $("#trainDelay").text(trainArray[0]["delay"]);
+      $("#trainArrival").text(trainArray[0]["arrival"]);
+    } else {
+      $("#trainName").text("Train was null");
+      console.log("Error: TrainArray is null");
+    }
   }
+  $(".userReports").slideDown();
+
+  /***** Trimet API Call to vehicles *****/
+  // By passing in trainname and stop ID
+  function getTrimetVehicleId(arrivalVehicleId) {
+    $.ajax({
+      type: "GET",
+      url: "https://developer.trimet.org/ws/v2/vehicles?xml=true&appID=3B5160342487A47D436E90CD9",
+      dataType: "xml",
+      success: processXML
+    });
+
+    function processXML(xml) {
+      $(xml).find("vehicle").each(function() {
+        var vehicleId = $(this).attr("vehicleID");
+        if(vehicleId === arrivalVehicleId) {
+          // what we need back: Long/Lat NextStopId, lastStopId
+          var vehicleID = $(this).attr("vehicleID");
+          var shortSign = $(this).attr("signMessageLong");
+          var fullSign = $(this).attr("signMessage");
+          var longitude = $(this).attr("longitude");
+          var latitude = $(this).attr("latitude");
+          var lastLocID = $(this).attr("lastLocID");
+          var nextLocID = $(this).attr("nextLocID");
+
+          var trainMeta = { trainId: vehicleID, longitude: longitude, latitude: latitude, lastLocID: lastLocID, nextLocID: nextLocID, shortSign: shortSign, fullSign: fullSign };
+
+          trainMetaArray.push(trainMeta);
+        }
+      });
+      localStorage.clear();
+      localStorage.setItem("trainMetaArray", trainMetaArray);
+    }
+  }
+
+
+
   // google maps
   var myCenter = new google.maps.LatLng(45.5423508,-122.7945062);
   // function initMap() {
