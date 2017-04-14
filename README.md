@@ -5,17 +5,7 @@
 #### By _**Ryan Jones, Xi Xia, Chris Carr, and Evan Bishop**_
 
 ## Description
-_Wise Commute allows Trimet commuters a platform to make better commuting decisions based off train statistics. As a user you can find out in real time what the train capacity, train car length, and train arrival times are for your desired train. Leveraging AWS cloud storage, Trimet API, Facebook API and Facebook Authentication, we are able to separate ourselves from other commuter apps._
-
-
-## Specifications
-
-| Behavior                   | Input Example     | Output Example    |
-| -------------------------- | -----------------:| -----------------:|
-| Sample behavior | Input text | Output text |
-| Sample behavior | Input text | Output text |
-| Sample behavior | Input text | Output text |
-| Sample behavior | Input text | Output text |
+_Wise Commute allows Trimet commuters a platform to make better commuting decisions based off train statistics. As a user you can find out in real time what the train capacity, train car length, and train arrival times are for your desired train. Leveraging the real time data provided by Trimet's API, we were able to separate ourselves from other commuter apps._
 
 
 ## Setup/Installation Requirements
