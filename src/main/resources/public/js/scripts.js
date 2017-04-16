@@ -1,4 +1,3 @@
-
 $(function(){
   $("#trainSelected").change(function() {
     // if the option is green then add green line stops..
@@ -293,10 +292,10 @@ $(function(){
 
     var trainStop = $('#trainStopSelected').find(":selected").val();
     // var trainStop = "13132";
-  
+
     $.ajax({
       type: "GET",
-      url: "https://developer.trimet.org/ws/v2/arrivals?locIDs=" + trainStop + "&xml=true&appID=3B5160342487A47D436E90CD9",
+      url: "https://developer.trimet.org/ws/v2/arrivals?locIDs=" + trainStop + "&xml=true&appID=Your_own_api_key",
       dataType: "xml",
       success: processXML
     });
@@ -395,7 +394,7 @@ $(function(){
   function getTrimetVehicleId(arrivalVehicleId) {
     $.ajax({
       type: "GET",
-      url: "https://developer.trimet.org/ws/v2/vehicles?xml=true&appID=3B5160342487A47D436E90CD9",
+      url: "https://developer.trimet.org/ws/v2/vehicles?xml=true&appID=Your_own_api_key" + trimetApiKey,
       dataType: "xml",
       success: processXML
     });
