@@ -1,3 +1,6 @@
+var trainLat;
+var trainLong;
+
 $(function(){
   $("#trainSelected").change(function() {
     // if the option is green then add green line stops..
@@ -287,58 +290,109 @@ $(function(){
   });
   //End report screen train stop selector
 
+
   $("#trainStopSelected").change(function() {
     $(this).parent('form').submit();
 
     var trainStop = $('#trainStopSelected').find(":selected").val();
-    // var trainStop = "13132";
+    // ajax call with .get and Json return
+    var vehicleID;
+    $.get("https://developer.trimet.org/ws/v2/arrivals?locIDs=" + trainStop + "&json=true&appID=3B5160342487A47D436E90CD9")
+    .then(function(response){
+      console.log("i am the first call.");
+      console.log(response);
+      var trainFullSign = response.resultSet.arrival[0].fullSign;
+      // console.log(trainFullSign);
+      var estimatedTime = response.resultSet.arrival[0].estimated;
+      var scheduledTime = response.resultSet.arrival[0].scheduled;
+      // Arrival Time
+      var scheduledDate = new Date(0);
+      scheduledDate.setUTCMilliseconds(scheduledTime);
+      var arrivalTime = scheduledDate.toLocaleTimeString();
+      // console.log(arrivalTime);
+      // vehicleID = response.resultSet.arrival[0].vehicleID;
+      // console.log("vehicle ID--"+vehicleID);
+      $.get("https://developer.trimet.org/ws/v2/vehicles?ids="+response.resultSet.arrival[0].vehicleID+"&json=true&appID=3B5160342487A47D436E90CD9")
+      .then(function(responseNext){
+        console.log("i am the second call.");
+        console.log("Vehicle Id from second call--"+responseNext.resultSet.vehicle[0].vehicleID );
+        console.log("Next Stop from second call--"+responseNext.resultSet.vehicle[0].nextLocID );
+        console.log("Original stop selected--" + trainStop);
+        trainLat = responseNext.resultSet.vehicle[0].latitude;
+        trainLong = responseNext.resultSet.vehicle[0].longitude;
+        console.log("latitude--"+ trainLat);
+        console.log("longitude--"+ trainLong);
 
-    $.ajax({
-      type: "GET",
-      url: "https://developer.trimet.org/ws/v2/arrivals?locIDs=" + trainStop + "&xml=true&appID=Your_own_api_key",
-      dataType: "xml",
-      success: processXML
-    });
 
-    function processXML(xml) {
-      var trainRoute = $('#trainSelected').find(":selected").val();
-      var trainArray = new Array();
-      $(xml).find("arrival").each(function() {
-        // Train name (shortSign)
-        var shortSign = $(this).attr('shortSign');
-        // count to stop at 1
-        var count = 0;
-        if(shortSign.includes(trainRoute) && count === 0) {
-          // Vehicle ID
-          var trainId = $(this).attr('vehicleID');
-          // Train name (fullSign)
-          var fullSign = $(this).attr('fullSign');
-          console.log("Fullsign: " + fullSign);
-          // Delay
-          var scheduledTime = parseInt($(this).attr('scheduled'));
-          var estimatedTime = parseInt($(this).attr('estimated'));
-          var delay;
-          if(scheduledTime > estimatedTime) {
-            delay = ((scheduledTime - estimatedTime) / 1000 / 60);
-          } else {
-            delay = ((estimatedTime - scheduledTime) / 1000 / 60);
-          }
-          console.log("Delay: " + delay);
-          // Arrival Time
-          var scheduledDate = new Date(0);
-          scheduledDate.setUTCMilliseconds(scheduledTime);
-          var arrivalTime = scheduledDate.toLocaleTimeString();
-          console.log("arrival time: " + arrivalTime);
 
-          var trainInformation = { fullSign: fullSign, delay: delay, arrival: arrivalTime, trainId: trainId };
-
-          trainArray.push(trainInformation);
-        }
-        count = 1;
+      })
+      .fail(function(error) {
+        console.log(error);
       });
-      localStorage.clear();
-      localStorage.setItem("trainArray", JSON.stringify(trainArray));
-    }
+    })
+    .fail(function(error) {
+      console.log(error);
+    });
+//     .then(
+//
+//
+//
+//   //   .then(function(response){
+//   //     console.log("I ran");
+//   //     console.log(response.resultSet);
+//   // })
+//
+// );
+
+
+
+
+  //   $.ajax({
+  //     type: "GET",
+  //     url: "https://developer.trimet.org/ws/v2/arrivals?locIDs=" + trainStop + "&xml=true&appID=3B5160342487A47D436E90CD9",
+  //     dataType: "xml",
+  //     success: processXML
+  //   });
+  //
+  //   function processXML(xml) {
+  //     var trainRoute = $('#trainSelected').find(":selected").val();
+  //     var trainArray = new Array();
+  //     $(xml).find("arrival").each(function() {
+  //       // Train name (shortSign)
+  //       var shortSign = $(this).attr('shortSign');
+  //       // count to stop at 1
+  //       var count = 0;
+  //       if(shortSign.includes(trainRoute) && count === 0) {
+  //         // Vehicle ID
+  //         var trainId = $(this).attr('vehicleID');
+  //         // Train name (fullSign)
+  //         var fullSign = $(this).attr('fullSign');
+  //         console.log("Fullsign: " + fullSign);
+  //         // Delay
+  //         var scheduledTime = parseInt($(this).attr('scheduled'));
+  //         var estimatedTime = parseInt($(this).attr('estimated'));
+  //         var delay;
+  //         if(scheduledTime > estimatedTime) {
+  //           delay = ((scheduledTime - estimatedTime) / 1000 / 60);
+  //         } else {
+  //           delay = ((estimatedTime - scheduledTime) / 1000 / 60);
+  //         }
+  //         console.log("Delay: " + delay);
+  //         // Arrival Time
+  //         var scheduledDate = new Date(0);
+  //         scheduledDate.setUTCMilliseconds(scheduledTime);
+  //         var arrivalTime = scheduledDate.toLocaleTimeString();
+  //         console.log("arrival time: " + arrivalTime);
+  //
+  //         var trainInformation = { fullSign: fullSign, delay: delay, arrival: arrivalTime, trainId: trainId };
+  //
+  //         trainArray.push(trainInformation);
+  //       }
+  //       count = 1;
+  //     });
+  //     localStorage.clear();
+  //     localStorage.setItem("trainArray", JSON.stringify(trainArray));
+  // } end of function XML processXML
   });
 
   var url = location.href;
@@ -356,19 +410,8 @@ $(function(){
       console.log("Error: TrainArray is null");
     }
     /**** Google Map API ****/
-    var myCenter = new google.maps.LatLng(45.5423508,-122.7945062);
-    // function initMap() {
-    //   // var myCenter = {lat: -25.363, lng: 131.044};
-    //   var map = new google.maps.Map(document.getElementById('map'), {
-    //     zoom: 12,
-    //     center: myCenter
-    //
-    //   });
-    //   var marker = new google.maps.Marker({
-    //     position: myCenter,
-    //     map: map
-    //   });
-    // }
+
+    var myCenter = new google.maps.LatLng(trainLat, trainLong);
     function initialize() {
       var mapProp = {
       center:myCenter,
